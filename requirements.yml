@@ -1,0 +1,15 @@
+---
+# This file defines the collections the Ansible project requires.
+collections:
+  # 1. This collection MUST be hosted in your Private Automation Hub (PAH).
+  # We use version 1.0.0 for uniqueness.
+  - name: dalibo.advanced
+    version: "2.1.0"
+
+  # 2. This collection should NOT exist in your PAH, forcing the Controller 
+  # to check the next repository (the public Galaxy).
+  # Since our test setup prioritizes PAH, the Controller should succeed in step 1,
+  # but if the PAH fails, the Controller would typically fall back here.
+  # For this demonstration, we'll focus on success/failure of the 'internal_org' collection.
+  - name: snagoor.aap_common
+    version: "1.0.0"
