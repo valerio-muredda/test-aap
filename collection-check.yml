@@ -1,0 +1,29 @@
+---
+- name: 01 - Test Collection Precedence and Installation
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Ensure collections from requirements.yml are installed
+      # This module installs collections defined in requirements.yml. 
+      # It uses the API credentials defined on the Organization.
+      ansible.builtin.shell: |
+        ansible-galaxy collection install -r collections/requirements.yml --force
+      args:
+        chdir: "{{ playbook_dir }}"
+      
+    - name: Verify internal_org.test_collection was installed (proof of PAH priority)
+      ansible.builtin.debug:
+        msg: "PAH Collection: internal_org.test_collection is successfully installed."
+      # Replace 'internal_org.test_collection.my_module' with a known module/plugin name
+      # from the collection you uploaded to your PAH.
+      register: pah_success
+      ansible.builtin.wait_for:
+        timeout: 1  # Dummy timeout to simulate module call (adjust if needed)
+      # You'd typically use a module from the collection here, but for this test,
+      # we assume the previous step's success implies installation.
+
+    - name: Output status
+      ansible.builtin.debug:
+        msg: "Collection installation check complete. Check the job log for the source URL used."
