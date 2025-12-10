@@ -13,3 +13,5 @@ collections:
   # For this demonstration, we'll focus on success/failure of the 'internal_org' collection.
   - name: snagoor.aap_common
     version: "1.0.0"
+
+  - name: ansible.snmp
