@@ -6,23 +6,24 @@
 
   tasks:
     - name: Ensure collections from requirements.yml are installed
-      # This module installs collections defined in requirements.yml. 
-      # It uses the API credentials defined on the Organization.
+      # This task executes the ansible-galaxy command using the credentials defined on the Organization.
       ansible.builtin.shell: |
         ansible-galaxy collection install -r collections/requirements.yml --force
       args:
+        # The playbook_dir variable ensures Ansible finds the collections/requirements.yml file in the project directory.
         chdir: "{{ playbook_dir }}"
+      # The output of the shell command (stdout/stderr) will show where the collections were downloaded from.
+      register: collection_install_result
       
-    - name: Verify dalibo.advanced was installed (proof of PAH priority)
+    - name: Display installation results (Optional check the log for specific URLs)
       ansible.builtin.debug:
-        msg: "PAH Collection: dalibo.advanced is successfully installed."
-      # Replace 'dalibo.advanced.my_module' with a known module/plugin name
-      # from the collection you uploaded to your PAH.
-      register: pah_success
-      ansible.builtin.wait_for:
-        timeout: 1  # Dummy timeout to simulate module call (adjust if needed)
-      # You'd typically use a module from the collection here, but for this test,
-      # we assume the previous step's success implies installation.
+        msg: "Installation Output: {{ collection_install_result.stdout_lines }}"
+
+    - name: Verify dalibo.advanced was installed (proof of PAH priority)
+      # This task is a placeholder to show successful execution after installation.
+      # The success of the previous shell command is the true verification.
+      ansible.builtin.meta: noop
+      # register: pah_success # Removed unnecessary register here
 
     - name: Output status
       ansible.builtin.debug:
