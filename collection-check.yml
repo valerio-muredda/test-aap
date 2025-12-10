@@ -13,10 +13,10 @@
       args:
         chdir: "{{ playbook_dir }}"
       
-    - name: Verify internal_org.test_collection was installed (proof of PAH priority)
+    - name: Verify dalibo.advanced was installed (proof of PAH priority)
       ansible.builtin.debug:
-        msg: "PAH Collection: internal_org.test_collection is successfully installed."
-      # Replace 'internal_org.test_collection.my_module' with a known module/plugin name
+        msg: "PAH Collection: dalibo.advanced is successfully installed."
+      # Replace 'dalibo.advanced.my_module' with a known module/plugin name
       # from the collection you uploaded to your PAH.
       register: pah_success
       ansible.builtin.wait_for:
